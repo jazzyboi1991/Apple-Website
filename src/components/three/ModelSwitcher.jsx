@@ -13,9 +13,13 @@ const fadeMeshes = (group, opacity) => {
     if (!group) return;
 
     group.traverse((child) => {
-        if (child.isMesh) {
+        if (child.isMesh && child.material) {
             child.material.transparent = true;
-            gsap.to(child.material, { opacity, duration: ANIMATION_DURATION });
+            gsap.to(child.material, { 
+                opacity, 
+                duration: ANIMATION_DURATION, 
+                overwrite: 'auto' 
+            });
         }
     });
 };
@@ -23,7 +27,11 @@ const fadeMeshes = (group, opacity) => {
 const moveGroup = (group, x) => {
     if (!group) return;
 
-    gsap.to(group.position, { x, duration: ANIMATION_DURATION });
+    gsap.to(group.position, { 
+        x, 
+        duration: ANIMATION_DURATION, 
+        overwrite: 'auto' 
+    });
 };
 
 const ModelSwitcher = ({ scale, isMobile }) => {

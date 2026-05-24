@@ -4,8 +4,13 @@ const Hero = () => {
     const videoRef = useRef();
 
     useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.playbackRate = 2;
+        const video = videoRef.current;
+        if (video) {
+            video.playbackRate = 2;
+            video.muted = true;
+            video.play().catch((err) => {
+                console.warn("Video auto-play was blocked or failed to load:", err);
+            });
         }
     }, []);
 
@@ -22,6 +27,7 @@ const Hero = () => {
                 autoPlay
                 muted
                 playsInline
+                loop
             />
 
             <button>Buy</button>

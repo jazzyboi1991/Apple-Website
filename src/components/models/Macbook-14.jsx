@@ -24,10 +24,15 @@ export default function MacbookModel14(props) {
     const texture = useTexture('/screen.png');
 
     useEffect(() => {
+        const targetColor = new Color(color);
         scene.traverse((child) => {
-            if (child.isMesh) {
+            if (child.isMesh && child.material) {
                 if (!noChangeParts.includes(child.name)) {
-                    child.material.color = new Color(color);
+                    if (child.material.color) {
+                        child.material.color.copy(targetColor);
+                    } else {
+                        child.material.color = targetColor;
+                    }
                 }
             }
         });
